@@ -9,7 +9,7 @@ const useAxiosOnMount = (url) => {
     useEffect(()=>{
         setTimeout(()=>{
             getData()
-        },2000)
+        },500)
     },[])
 
     const getData = async() => {
