@@ -38,10 +38,18 @@ const AuthProvider = (props) => {
 
     }
 
-    const handleLogout = (history) => {
+    const handleLogout = async (history) => {
         console.log('handleLogout called')
-        setUser(null)
-        history.push('/login')
+        try{
+            let res = await axios.delete('/api/auth/sign_out')
+            console.log(res)
+            setUser(null)
+            history.push('/login')
+        } catch (err){
+            alert('erro occurred check console')
+            console.log(err)
+            console.log(err.response)
+        }
     }
 
     return (
@@ -51,7 +59,8 @@ const AuthProvider = (props) => {
             authenticated: user !== null,
             handleRegister,
             handleLogin,
-            handleLogout
+            handleLogout,
+            setUser
         }}>
             {props.children}
         </AuthContext.Provider>

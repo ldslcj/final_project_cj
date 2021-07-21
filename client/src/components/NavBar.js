@@ -8,7 +8,7 @@ const Navbar = () => {
   const history = useHistory()
   const {pathname} = useLocation()
   const {authenticated, handleLogout} = useContext(AuthContext)
-  const getRightNave = () => {
+  const getRightNav = () => {
     if(authenticated){
       return (
       <Menu.Menu position='right'>
@@ -33,7 +33,7 @@ const Navbar = () => {
       <Link to='/'>
         <Menu.Item active={pathname ==='/'}>Home</Menu.Item>
       </Link>
-      {getRightNave()}
+      {getRightNav()}
     </Menu>
   );
 }

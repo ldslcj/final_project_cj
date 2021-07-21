@@ -5,19 +5,23 @@ import Navbar from './components/NavBar';
 import Register from "./components/Register";
 import Home from "./pages/Home";
 import 'semantic-ui-css/semantic.min.css'
+import FetchUser from "./components/FetchUser";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <>
-    <Navbar />
-    <Container>
-    <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-      </Switch>
-      </Container>
-      </>
+      <Navbar />
+      <FetchUser>
+        <Container>
+          <Switch>
+            <ProtectedRoute exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+          </Switch>
+        </Container>
+      </FetchUser>
+    </>
   );
 }
 
