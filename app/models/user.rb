@@ -2,6 +2,7 @@
 
 class User < ActiveRecord::Base
   serialize :liked_cats, Array
+  has_many :posts
 
 
   extend Devise::Models 
