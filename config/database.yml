@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: cat_tinder-app_here_development
+  database: final_project_cj_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: cat_tinder-app_here_test
+  database: final_project_cj_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: cat_tinder_app_production
-  username: cat_tinder_app_here
-  password: <%= ENV['cat_tinder-app_DATABASE_PASSWORD'] %>
+  database: final_project_cj_production
+  username: final_project_cj
+  password: <%= ENV['final_project_cj_DATABASE_PASSWORD'] %>

@@ -6,16 +6,15 @@ const useAxiosOnMount = (url) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            getData()
-        },500)
+    useEffect(()=>{ 
+            getData() 
     },[])
 
     const getData = async() => {
         // about try catch
         try {
            let res = await axios.get(url)
+           console.log("hook data", res.data)
            setData(res.data)
            setError(null)
            setLoading(false)
@@ -25,7 +24,7 @@ const useAxiosOnMount = (url) => {
         }
       }
     
-    return {data, loading, error}
+    return {data, loading, error, setData, getData}
 }
 export default useAxiosOnMount
 

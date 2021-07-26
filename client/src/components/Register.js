@@ -3,6 +3,7 @@ import { Form } from 'semantic-ui-react'
 import { useFormInput } from '../customHooks/useFormInput'
 import {AuthContext} from '../providers/AuthProvider'
 import {useHistory} from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 
 const Register = (props) => {
     const history = useHistory()
@@ -23,7 +24,7 @@ const Register = (props) => {
     }
 
     return (
-        <>
+        <Container>
             <h1>Register Form</h1>
             <p>test value: {handleRegister}</p>
             <Form onSubmit={handleSubmit}>
@@ -32,7 +33,7 @@ const Register = (props) => {
                 <Form.Input {...passwordConfirmation} type='password'/>
                 <Form.Button type='submit'>Add</Form.Button>
             </Form>
-        </>
+        </Container>
     )
 }
 

@@ -1,41 +1,97 @@
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import { Nav, Container, Navbar } from 'react-bootstrap'
+import logo from './image/yin-yang.svg'
+import styled from "styled-components";
 
-import React, {useContext} from "react";
-import { Link, useLocation, useHistory } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
-import {AuthContext} from '../providers/AuthProvider'
+// For Basic setup only please change
 
-const Navbar = () => {
-  const history = useHistory()
-  const {pathname} = useLocation()
-  const {authenticated, handleLogout} = useContext(AuthContext)
+// if not logged in I want register/login links
+
+// if logged in I want logout link, also ProtectRoutes Rendered
+const NavBar = () => {
+  const history = useHistory();
+  const { user, handleLogout } = useContext(AuthContext);
+
   const getRightNav = () => {
-    if(authenticated){
+    if (user) {
       return (
-      <Menu.Menu position='right'>
-        <Menu.Item onClick={()=>handleLogout(history)}>Logout</Menu.Item>
-      </Menu.Menu>
-      )
+        <>
+          <NavLink href="/admin_page">Admin Page</NavLink>
+          <NavLink
+            onClick={() => handleLogout(history)}
+          >
+            Logout
+          </NavLink>
+
+        </>
+      );
     } else {
-    return (
-      <Menu.Menu position='right'>
-        <Link to='/register'>
-          <Menu.Item active={pathname ==='/register'}>Register</Menu.Item>
-        </Link>
-        <Link to='/login'>
-          <Menu.Item active={pathname ==='/login'}>Login</Menu.Item>
-        </Link>
-      </Menu.Menu>
-    )
-  }}
+      return (
+        <>
+            <NavLink href="/register">Register</NavLink>
+            <NavLink href="/login">login</NavLink>
+        </>
+      );
+    }
+  };
 
   return (
-    <Menu pointing secondary>
-      <Link to='/'>
-        <Menu.Item active={pathname ==='/'}>Home</Menu.Item>
-      </Link>
-      {getRightNav()}
-    </Menu>
-  );
-}
+      <CustomNavBar variant="light">
+        <Container>
+          <NavBarBrand href="/">
+            <LogoImg 
+              alt=""
+              src={logo}
+              width="40"
+              height="40"
+              className="d-inline-block align-middle" /> {' '} Balanced
+          </NavBarBrand>
+          <Nav className="me-auto">
+          <Nav.Item as="li">
+              <NavLink href="/add_player">Players</NavLink>
+            </Nav.Item>
+            <NavItem as="li">
+              <NavLink href="/gen_team">Teams</NavLink>
+            </NavItem>
 
-export default Navbar;
+            </Nav>
+            <Nav>
+        <Navbar.Collapse className="justify-content-end">{getRightNav()}</Navbar.Collapse>
+        </Nav>
+        
+        </Container>
+
+      </CustomNavBar>
+  );
+};
+
+
+export default NavBar;
+
+const CustomNavBar = styled(Navbar)`
+  background-color: #F8F9FA;
+  height: 100px;
+`
+
+const NavBarBrand = styled(Navbar.Brand)`
+  font-size: 3em;
+  font-weight: bold;
+  color: #2d2d2d !important;
+`
+const LogoImg = styled.img`
+  margin-bottom: 10px;
+`
+
+const NavLink = styled(Nav.Link)`
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #2d2d2d !important;
+  margin-right: 5px;
+  margin-left: 15px;
+  text-transform: uppercase;
+`
+const NavItem = styled(Nav.Item)`
+  color: #2d2d2d;
+`

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_034551) do
+ActiveRecord::Schema.define(version: 2021_07_26_114516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,28 @@ ActiveRecord::Schema.define(version: 2021_07_21_034551) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string "url"
+    t.string "format"
+    t.string "original_filename"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.float "win"
+    t.float "lose"
+    t.float "win_rate"
+    t.string "position"
+    t.bigint "tier_id", null: false
+    t.bigint "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_players_on_team_id"
+    t.index ["tier_id"], name: "index_players_on_tier_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.bigint "user_id", null: false
@@ -32,8 +54,22 @@ ActiveRecord::Schema.define(version: 2021_07_21_034551) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "things", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tiers", force: :cascade do |t|
+    t.string "name"
+    t.decimal "value"
+    t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -69,5 +105,7 @@ ActiveRecord::Schema.define(version: 2021_07_21_034551) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "players", "teams"
+  add_foreign_key "players", "tiers"
   add_foreign_key "posts", "users"
 end
