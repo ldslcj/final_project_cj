@@ -113,10 +113,10 @@ const Players = () => {
 
     const renderData = () => {
         return (
-            <table singleLine class="ui collapsing table">
-                <Table.Header style={{ backgroundColor: "#b37dff" }}>
-                    <Table.Row >
-                        <Table.HeaderCell></Table.HeaderCell>
+            <table singleLine class="ui collapsing table" style={{textAlign:"center"}}>
+                <CustomTable style={{backgroundColor:"#7974D5", color:"#fff"}}>
+                    <Table.Row>
+                        <Table.HeaderCell>Include</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.HeaderCell>Tier</Table.HeaderCell>
                         <Table.HeaderCell>Position</Table.HeaderCell>
@@ -125,13 +125,13 @@ const Players = () => {
                         <Table.HeaderCell>Win Rate</Table.HeaderCell>
                         <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
-                </Table.Header>
+                </CustomTable>
 
                 <Table.Body>
                     {data.map(d => (
                         <Table.Row style={{ fontWeight: "bold" }}>
                             <Table.Cell>
-                                <Link onClick={() => filterPlayers(d.id)}>
+                                <Link Click={() => filterPlayers(d.id)}>
                                     <ColorIcon name='x' ></ColorIcon>
                                 </Link>
                             </Table.Cell>
@@ -194,5 +194,9 @@ const ColorIcon = styled(Icon)`
 
 const ColorButton = styled(Button)`
     color: #fff !important;
+    background-color: #7974D5 !important;
+`
+
+const CustomTable = styled(Table.Header)`
     background-color: #7974D5 !important;
 `

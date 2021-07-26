@@ -73,6 +73,8 @@ export default NavBar;
 const CustomNavBar = styled(Navbar)`
   background-color: #F8F9FA;
   height: 100px;
+  position: sticky;
+  top: 0;
 `
 
 const NavBarBrand = styled(Navbar.Brand)`

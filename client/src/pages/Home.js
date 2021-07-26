@@ -95,6 +95,8 @@ const LandingBanner = styled(Container)`
     background-attachment: fixed;
     background-position: center;
     background-size: contain;
+
+    
 `
 
 const ContentCol = styled(Col)`

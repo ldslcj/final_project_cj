@@ -112,7 +112,7 @@ const PlayerForm = (props) => {
                         />
                     </Form.Field>
                 </Form.Group>
-                <ColorButton style={{ marginBottom: '30px' }} type='submit' className="ui violet button">Create Player</ColorButton>
+                <ColorButton style={{ marginBottom: '30px' }} type='submit' className="ui violet button">Add Player</ColorButton>
             </Form>
         </Container>
     )
