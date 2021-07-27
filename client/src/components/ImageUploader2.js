@@ -7,11 +7,13 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { Button, Form, Input } from "semantic-ui-react";
 import styled from 'styled-components'
+import { useHistory } from "react-router";
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 function ImageUploader() {
     const [files, setFiles] = useState([]);
     const [name, setName] = useState('');
+    const history = useHistory()
 
     const handlePhotoUploaded = (files) => {
         console.log(files[0].file);
@@ -27,6 +29,8 @@ function ImageUploader() {
             data.append('name1', name)
             let res = await axios.post(`/api/images/upload2?name2=${name}`, data)
             console.log(res.data)
+            history.push('/')
+            history.push('/admin_page')
         } catch (err) {
             alert(err)
             console.log(err)
@@ -36,12 +40,12 @@ function ImageUploader() {
     return (
         <div className="App" style={{ margin: '20px' }}>
             <Form>
-            <div class="ui labeled input">
-                            <div class="ui label" style={{backgroundColor:"#7974D5", color:"#fff"}}>Name</div>
-                <Input
-                    value={name}
-                    onChange={(e) => { setName(e.target.value) }}
-                /></div>
+                <div class="ui labeled input">
+                    <div class="ui label" style={{ backgroundColor: "#7974D5", color: "#fff" }}>Name</div>
+                    <Input
+                        value={name}
+                        onChange={(e) => { setName(e.target.value) }}
+                    /></div>
                 <CustomFilePond
                     files={files}
                     allowReorder={true}

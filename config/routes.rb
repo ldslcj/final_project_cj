@@ -7,7 +7,15 @@ Rails.application.routes.draw do
     resources :team
     resources :tiers
     resources :images
+
+    resources :team do
+      resources :player
+    end
+
     post '/player/assign_team', to: 'player#assign_team'
+    post '/player/assign_win', to: 'player#assign_win'
+
+  
 
     post '/images/upload1', to: 'images#upload_1_image'
     post '/images', to: 'images#destroy'

@@ -7,10 +7,7 @@ import styled from 'styled-components'
 import useAxiosOnMount from '../customHooks/useAxiosOnMount'
 
 const TeamContainer = () => {
-    const history = useHistory()
-    const params = useParams()
     const location = useLocation()
-    const [team, setTeam] = useState(location.team)
     const team1 = []
     const team2 = []
 
@@ -18,10 +15,6 @@ const TeamContainer = () => {
     // const { data, loading, error, getData, setData } = useAxiosOnMount('/api/player')
     // console.log('useaxios', data)
     const [data, setData] = useState([])
-    const [playerTeam, setPlayerTeam] = useState(location.team)
-    const [teamOnePlayer, setTeamOnePlayer] = useState([])
-    const [teamTwoPlayer, setTeamTwoPlayer] = useState([])
-    const [gotData, setGotData] = useState([])
 
     useEffect(()=>{
             getPlayers();
@@ -51,6 +44,7 @@ const TeamContainer = () => {
         
 
     }
+
 
     const renderData = () => {
         whichTeam();

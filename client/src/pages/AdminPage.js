@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Container, Card, Image, Icon } from 'semantic-ui-react'
 import ImageUploader from '../components/ImageUploader2'
@@ -9,9 +9,10 @@ import useAxiosOnMount from '../customHooks/useAxiosOnMount'
 const AdminPage = () => {
     const { data, loading, error, setData } = useAxiosOnMount('/api/images')
 
+    const [background, setBackground] = useState([])
 
     const backgroundSet = () => {
-        console.log('test')
+        
     }
 
     const deleteImage = async (id) => {
@@ -28,7 +29,7 @@ const AdminPage = () => {
     const filterImages = (id) => {
         setData(data.filter((d) => d.id !== id))
     }
-
+    console.log('image data', data)
     const renderImage = () => {
         return data.map((i) => {
             return (
@@ -37,9 +38,7 @@ const AdminPage = () => {
                     <Card.Content>
                         <Card.Header>{i.original_filename}</Card.Header>
                         <Card.Description>Image format {i.format}</Card.Description>
-                        <Link onClick={() => backgroundSet(i.url)}>
-                            Use this background
-                        </Link>
+                        <Card.Description>Image URL {i.url}</Card.Description>
                         <Link onClick={() => deleteImage(i.id)} style={{float:"right"}}>
                             <Icon name="trash" />
                         </Link>
@@ -60,3 +59,4 @@ const AdminPage = () => {
 }
 
 export default AdminPage
+

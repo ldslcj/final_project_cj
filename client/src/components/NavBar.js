@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { Nav, Container, Navbar } from 'react-bootstrap'
@@ -12,13 +12,24 @@ import styled from "styled-components";
 // if logged in I want logout link, also ProtectRoutes Rendered
 const NavBar = () => {
   const history = useHistory();
-  const { user, handleLogout } = useContext(AuthContext);
+  const { user, userId, handleLogout } = useContext(AuthContext);
 
   const getRightNav = () => {
-    if (user) {
+    if (userId == 1) {
+      
       return (
         <>
           <NavLink href="/admin_page">Admin Page</NavLink>
+          <NavLink
+            onClick={() => handleLogout(history)}
+          >
+            Logout
+          </NavLink>
+         </>
+      )}
+      else if (user){ 
+        return(
+        <>
           <NavLink
             onClick={() => handleLogout(history)}
           >

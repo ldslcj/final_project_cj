@@ -1,5 +1,5 @@
 class Api::PlayerController < ApplicationController
-  before_action :set_player, only: [:show, :update, :destroy]
+  before_action :set_player, only: [:show, :destroy]
   def index
     render json: Player.all_formated
   end
@@ -15,6 +15,13 @@ class Api::PlayerController < ApplicationController
     end
   end
 
+  def assign_win
+    params[:data].each do |player|
+    pl = Player.find(player[:id])
+    pl.update(win: player[:win], lose: player[:lose])
+    end
+  end
+
 
   def create
     @player = Player.new(player_params)
@@ -26,6 +33,7 @@ class Api::PlayerController < ApplicationController
   end
 
   def update
+    @player = Player.find(params[:id])
     if(@player.update(player_params))
         render json: @player
     else

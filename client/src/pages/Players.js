@@ -13,6 +13,8 @@ const Players = () => {
     const [arr, setArr] = useState([1, 1, 1, 1, 1, 2, 2, 2, 2, 2])
     const { data, loading, error, setData, getData } = useAxiosOnMount('/api/player')
 
+    const [playerData, setPlayerData] = useState([])
+
 
     const deletePlayers = async (id) => {
         try {
@@ -23,6 +25,15 @@ const Players = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+    const filterPlayers = (id) => {
+        console.log('filter')
+        setData(data.filter((d) => d.id !== id))
+    }    
+    
+    const removePlayer = (id) => {
+        console.log('filter')
+        setData(data.filter((d) => d.id !== id))
     }
 
     // const playerWinRate = () => {
@@ -58,15 +69,15 @@ const Players = () => {
         // console.log('min', min)
         // console.log('max', max)
 
-        data.map(d => {
+        data.forEach(d => {
 
             const randomNumber = arr[Math.floor(Math.random() * arr.length)];
-            // const count = Math.floor(Math.random() * 2) + 1
-            d.team_id = randomNumber
             var idx = arr.indexOf(randomNumber)
-            if(idx >= 0){
-                setArr(arr.splice(idx, 1))
-                console.log(arr)
+            // const count = Math.floor(Math.random() * 2) + 1
+            if (idx >= 0 && arr.length != 0){
+            d.team_id = randomNumber
+            setArr(arr.splice(idx, 1))
+            console.log('splice',arr)
             }
         })
         history.push('/gen_team')
@@ -97,6 +108,8 @@ const Players = () => {
     //     })
     // }
 
+
+
     const createTeams = async () => {
         console.log('createTEams init')
         assignTeamId()
@@ -106,15 +119,30 @@ const Players = () => {
 
     }
 
-
-    const filterPlayers = (id) => {
-        setData(data.filter((d) => d.id !== id))
+    const getWinrate = () => {
+        data.map(d=>{
+            let win_rate = (d.win / (d.win + d.lose))
+            let a = win_rate.toFixed(2)
+            console.log('id, winrate', d.id, win_rate)
+            postWinrate(d.id, a)
+        })
     }
 
+    const postWinrate = async (id, winrate) => {
+        let res = await axios.put(`/api/player/${id}`, {
+            id: id,
+            win_rate: winrate
+        })
+    }
+
+
+
+
     const renderData = () => {
+        {getWinrate()}
         return (
             <table singleLine class="ui collapsing table" style={{textAlign:"center"}}>
-                <CustomTable style={{backgroundColor:"#7974D5", color:"#fff"}}>
+                <Table.Header style={{backgroundColor:"#7974D5", color:"#fff"}}>
                     <Table.Row>
                         <Table.HeaderCell>Include</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
@@ -122,16 +150,17 @@ const Players = () => {
                         <Table.HeaderCell>Position</Table.HeaderCell>
                         <Table.HeaderCell>Win</Table.HeaderCell>
                         <Table.HeaderCell>Lose</Table.HeaderCell>
-                        <Table.HeaderCell>Win Rate</Table.HeaderCell>
+                        <Table.HeaderCell>Balanced Rate
+                            <br/><p style={{fontSize:"0.8em"}}>(0.5 = well balanced)</p></Table.HeaderCell>
                         <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
-                </CustomTable>
+                </Table.Header>
 
                 <Table.Body>
                     {data.map(d => (
                         <Table.Row style={{ fontWeight: "bold" }}>
                             <Table.Cell>
-                                <Link Click={() => filterPlayers(d.id)}>
+                                <Link onClick={() => removePlayer(d.id)}>
                                     <ColorIcon name='x' ></ColorIcon>
                                 </Link>
                             </Table.Cell>
@@ -163,6 +192,12 @@ const Players = () => {
                             </Table.Cell>
                         </Table.Row>
                     ))}
+                    <Table.Row>
+                            <Table.Cell></Table.Cell>
+                            <Table.Cell></Table.Cell>
+                            <Table.Cell></Table.Cell>
+                            <Table.Cell></Table.Cell>
+                    </Table.Row>
                 </Table.Body>
                 <Link to={{
                     pathname: '/gen_team'
@@ -180,7 +215,9 @@ const Players = () => {
         <Container>
             <div>
                 <PlayerForm data={data} getData={getData} />
+                
                 {renderData()}
+                
             </div>
         </Container>
     )

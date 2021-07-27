@@ -8,6 +8,7 @@ export const AuthConsumer = AuthContext.Consumer
 
 const AuthProvider = (props) => {
     const [user, setUser] = useState(null)
+    const [userId, setUserId] = useState(null)
 
     const handleRegister = async (userFormData, history) => {
         try {
@@ -28,14 +29,13 @@ const AuthProvider = (props) => {
             let res = await axios.post('api/auth/sign_in', userFormData)
             console.log(res)
             setUser(res.data.data)
+            setUserId(res.data.data.id)
             history.push('/')
         } catch (err) {
             console.log(err)
             console.log(err.response)
 
         }
-        console.log(userFormData)
-
     }
 
     const handleLogout = async (history) => {
@@ -56,6 +56,7 @@ const AuthProvider = (props) => {
         <AuthContext.Provider value={{
             testValue: 'test value',
             user,
+            userId,
             authenticated: user !== null,
             handleRegister,
             handleLogin,
