@@ -141,8 +141,9 @@ const Players = () => {
     const renderData = () => {
         {getWinrate()}
         return (
-            <table singleLine class="ui collapsing table" style={{textAlign:"center"}}>
-                <Table.Header style={{backgroundColor:"#7974D5", color:"#fff"}}>
+            <CustomDiv>
+            <CustomTable singleLine class="ui collapsing table" style={{textAlign:"center"}}>
+                <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Include</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
@@ -193,19 +194,24 @@ const Players = () => {
                         </Table.Row>
                     ))}
                     <Table.Row>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>                <Link to={{
+                    pathname: '/gen_team'
+                }}>
+                    <ColorButton onClick={() => createTeams()}>Create Teams</ColorButton>
+                </Link></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
                             <Table.Cell></Table.Cell>
                     </Table.Row>
                 </Table.Body>
-                <Link to={{
+                {/* <Link to={{
                     pathname: '/gen_team'
                 }}>
                     <ColorButton onClick={() => createTeams()}>Create Teams</ColorButton>
-                </Link>
+                </Link> */}
 
-            </table>
+            </CustomTable>
+            </CustomDiv>
         )
     }
 
@@ -234,6 +240,10 @@ const ColorButton = styled(Button)`
     background-color: #7974D5 !important;
 `
 
-const CustomTable = styled(Table.Header)`
-    background-color: #7974D5 !important;
+const CustomTable = styled(Table)`
+    margin-bottom: 100px;
+`
+
+const CustomDiv = styled.div`
+    padding-bottom: 500px;
 `

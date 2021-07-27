@@ -68,12 +68,12 @@ const Home = () => {
             </Row>
         </LandingBanner>
         <FeatureBanner fluid>
-            <Row>
+            <CustomRow>
                 <Col lg={2} ><FeatureImg class="d-none d-xs-block" src="https://res.cloudinary.com/cjlee/image/upload/v1627379229/Screen_Shot_2021-07-27_at_3.46.31_AM_xlhptq.png" /></Col>
-                <Col lg={4} md={{size: 12, order: "third"}} sm={{size: 12, order: "third"}} xs={{size: 12, order: "third"}}><Col><H1one>Random Team Generator</H1one></Col><Sub1Title>Balanced is designed for generating 2 teams for 5 vs 5 league of legends game with your friends. This app will help you to split a list of custom players into 2 teams randomly.</Sub1Title></Col>
+                <Col lg={4} md={{size: 12, order: "third"}} sm={{size: 12, order: "third"}} xs={{size: 12, order: "third"}}><Col><H1one>Random Team Generator</H1one></Col><Sub1Title>Balanced is designed to generate two random 5vs5 teams when playing League of Legends with your friends. This app helps you split a list of custom players into 2 teams randomly.</Sub1Title></Col>
                 <Col lg={2} ><FeatureImg class="d-none d-xs-block" src="https://res.cloudinary.com/cjlee/image/upload/v1627379229/Screen_Shot_2021-07-27_at_3.46.41_AM_gxbdti.png" /></Col>
-                <Col lg={4} md={{size: 12, order: "last"}} sm={{size: 12, order: "last"}} xs={{size: 12, order: "last"}}><Col><H1one>Track Your Game Results</H1one></Col><Sub1Title>Balanced is also prividing tracking system that you can record who won and lost. Furthermore, it shows you player's win rate as well.</Sub1Title></Col>
-            </Row>
+                <Col lg={4} md={{size: 12, order: "last"}} sm={{size: 12, order: "last"}} xs={{size: 12, order: "last"}}><Col><H1one>Track Your Game Results</H1one></Col><Sub1Title2>Balanced also privides a tracking system in which you record who won and lost. Furthermore, it shows you each individual player's win rate as well.</Sub1Title2></Col>
+            </CustomRow>
         </FeatureBanner>
         </>
     )
@@ -152,4 +152,17 @@ const Sub1Title = styled.p`
     font-size: 1.4rem;
     color: #383838;
     font-weight: 600;
+`
+
+const Sub1Title2 = styled.p`
+    padding: 0px 50px 0px 0px;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 1.4rem;
+    color: #383838;
+    font-weight: 600;
+`
+
+const CustomRow = styled(Row)`
+    padding-bottom: 500px;
 `
